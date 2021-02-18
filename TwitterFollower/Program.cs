@@ -14,7 +14,7 @@ namespace TwitterFollower
         private static void Main()
         {
             int tries = 60;
-            TryAgain:;
+        TryAgain:;
             try
             {
                 if (!SQLConnection.IsServerConnected(Properties.Settings.Default.FollowersConnectionString))

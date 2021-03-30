@@ -95,9 +95,9 @@ namespace TwitterFollower
             progressBar1.Value = progressBar1.Minimum;
             GoButton.Enabled = true;
 
-            if (success == "OK")
+            if (success != "OK")
             {
-                MessageBox.Show("Task completed successfully!", "TwitterFollower", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Task completed...", "TwitterFollower", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

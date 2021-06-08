@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -8,12 +9,13 @@ namespace TwitterFollower
 {
     public partial class Form1 : Form
     {
-        private readonly string _API_KEY = Properties.Settings.Default.API_KEY;
-        private readonly string _ACCESS_TOKEN = Properties.Settings.Default.ACCESS_TOKEN;
-        private readonly string _API_SECRET_KEY = Properties.Settings.Default.API_SECRET_KEY;
-        private readonly string _ACCESS_TOKEN_SECRET = Properties.Settings.Default.ACCESS_TOKEN_SECRET;
-        private readonly string _BEARER_TOKEN = Properties.Settings.Default.BEARER_TOKEN;
-        private readonly string _SCREEN_NAME = Properties.Settings.Default.SCREEN_NAME;
+        private string _API_KEY = Properties.Settings.Default.API_KEY;
+        private string _ACCESS_TOKEN = Properties.Settings.Default.ACCESS_TOKEN;
+        private string _API_SECRET_KEY = Properties.Settings.Default.API_SECRET_KEY;
+        private string _ACCESS_TOKEN_SECRET = Properties.Settings.Default.ACCESS_TOKEN_SECRET;
+        private string _BEARER_TOKEN = Properties.Settings.Default.BEARER_TOKEN;
+        private string _SCREEN_NAME = Properties.Settings.Default.SCREEN_NAME;
+        Thread thread;
 
         public Form1()
         {
@@ -41,6 +43,180 @@ namespace TwitterFollower
             VERSION_LABEL.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
             _ = BackupAsync();
+
+            Load += Form1_Load;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            API_KEY_BOX.TextChanged += API_KEY_BOX_TextChanged;
+            ACCESS_TOKEN_BOX.TextChanged += ACCESS_TOKEN_BOX_TextChanged;
+            API_SECRET_KEY_BOX.TextChanged += API_SECRET_KEY_BOX_TextChanged;
+            ACCESS_TOKEN_SECRET_BOX.TextChanged += ACCESS_TOKEN_SECRET_BOX_TextChanged;
+            BEARER_TOKEN_BOX.TextChanged += BEARER_TOKEN_BOX_TextChanged;
+            SCREEN_NAME_BOX.TextChanged += SCREEN_NAME_BOX_TextChanged;
+        }
+
+        private void SaveSettings(bool wait)
+        {
+            if (wait)
+            {
+                Thread.Sleep(1000);
+            }
+
+            Properties.Settings.Default.API_KEY = API_KEY_BOX.Text;
+            Properties.Settings.Default.ACCESS_TOKEN = ACCESS_TOKEN_BOX.Text;
+            Properties.Settings.Default.API_SECRET_KEY = API_SECRET_KEY_BOX.Text;
+            Properties.Settings.Default.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET_BOX.Text;
+            Properties.Settings.Default.BEARER_TOKEN = BEARER_TOKEN_BOX.Text;
+            Properties.Settings.Default.SCREEN_NAME = SCREEN_NAME_BOX.Text;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            _API_KEY = Properties.Settings.Default.API_KEY;
+            _ACCESS_TOKEN = Properties.Settings.Default.ACCESS_TOKEN;
+            _API_SECRET_KEY = Properties.Settings.Default.API_SECRET_KEY;
+            _ACCESS_TOKEN_SECRET = Properties.Settings.Default.ACCESS_TOKEN_SECRET;
+            _BEARER_TOKEN = Properties.Settings.Default.BEARER_TOKEN;
+            _SCREEN_NAME = Properties.Settings.Default.SCREEN_NAME;
+        }
+
+        private void SCREEN_NAME_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
+        }
+
+        private void BEARER_TOKEN_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
+        }
+
+        private void ACCESS_TOKEN_SECRET_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
+        }
+
+        private void API_SECRET_KEY_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
+        }
+
+        private void ACCESS_TOKEN_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
+        }
+
+        private void API_KEY_BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (thread != null)
+            {
+                if (!thread.IsAlive)
+                {
+                    thread = new Thread(() => SaveSettings(true))
+                    {
+                        IsBackground = true
+                    };
+                    thread.Start();
+                }
+            }
+            else
+            {
+                thread = new Thread(() => SaveSettings(true))
+                {
+                    IsBackground = true
+                };
+                thread.Start();
+            }
         }
 
         private async Task BackupAsync()
@@ -59,26 +235,11 @@ namespace TwitterFollower
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.API_KEY = API_KEY_BOX.Text;
-            Properties.Settings.Default.ACCESS_TOKEN = ACCESS_TOKEN_BOX.Text;
-            Properties.Settings.Default.API_SECRET_KEY = API_SECRET_KEY_BOX.Text;
-            Properties.Settings.Default.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET_BOX.Text;
-            Properties.Settings.Default.BEARER_TOKEN = BEARER_TOKEN_BOX.Text;
-            Properties.Settings.Default.SCREEN_NAME = SCREEN_NAME_BOX.Text;
-            Properties.Settings.Default.Save();
+            SaveSettings(false);
         }
 
         private void GoButton_Click(object sender, System.EventArgs e)
         {
-            Properties.Settings.Default.API_KEY = API_KEY_BOX.Text;
-            Properties.Settings.Default.ACCESS_TOKEN = ACCESS_TOKEN_BOX.Text;
-            Properties.Settings.Default.API_SECRET_KEY = API_SECRET_KEY_BOX.Text;
-            Properties.Settings.Default.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET_BOX.Text;
-            Properties.Settings.Default.BEARER_TOKEN = BEARER_TOKEN_BOX.Text;
-            Properties.Settings.Default.SCREEN_NAME = SCREEN_NAME_BOX.Text;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
             Start();
         }
 

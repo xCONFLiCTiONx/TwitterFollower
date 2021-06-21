@@ -30,7 +30,7 @@ namespace TwitterFollower
 
             InitializeComponent();
 
-            Properties.Settings.Default.Channel = AppDomain.CurrentDomain.BaseDirectory;
+            Properties.Settings.Default.Channel = Path.GetFileName(Properties.Settings.Default.Channel);
             Text += " - Directory Name: " + Properties.Settings.Default.Channel;
             Properties.Settings.Default.Save();
 

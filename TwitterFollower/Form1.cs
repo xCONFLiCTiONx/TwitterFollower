@@ -30,9 +30,9 @@ namespace TwitterFollower
 
             InitializeComponent();
 
-            Properties.Settings.Default.Channel = Path.GetFileName(Properties.Settings.Default.Channel);
-            Text += " - Directory Name: " + Properties.Settings.Default.Channel;
+            Properties.Settings.Default.Channel = Path.GetFileName(Environment.CurrentDirectory);
             Properties.Settings.Default.Save();
+            Text += " - Directory Name: " + Properties.Settings.Default.Channel;
 
             API_KEY_BOX.Text = _API_KEY;
             ACCESS_TOKEN_BOX.Text = _ACCESS_TOKEN;
